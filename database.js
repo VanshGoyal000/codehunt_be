@@ -71,204 +71,353 @@ async function createAdminUser() {
 // Seed quiz questions
 async function seedQuizQuestions() {
   try {
-    // Check if questions already exist
-    // const questionCount = await Question.countDocuments();
-    // if (questionCount > 0) {
-    //   console.log('Questions already exist, skipping seed');
-    //   return;
-    // }
-
-    console.log('Seeding quiz questions...');
+    // Clear existing questions for clean reload
+    await Question.deleteMany({});
+    console.log('Existing questions cleared, seeding new questions...');
     
     // FIRST YEAR QUESTIONS
     const firstYearQuestions = [
       {
-        question: "What does HTML stand for?",
-        options: JSON.stringify(["Hypertext Markup Language", "Hypertext Markdown Language", "Hyper Transfer Markup Language", "High-level Text Management Language"]),
-        correct_answer: "Hypertext Markup Language",
-        difficulty: "easy"
-      },
-      {
-        question: "Which of the following is a valid way to declare a variable in JavaScript?",
-        options: JSON.stringify(["var x = 5;", "variable x = 5;", "v x = 5;", "int x = 5;"]),
-        correct_answer: "var x = 5;",
-        difficulty: "easy"
-      },
-      {
-        question: "Which CSS property is used to change the text color of an element?",
-        options: JSON.stringify(["color", "text-color", "font-color", "foreground-color"]),
-        correct_answer: "color",
-        difficulty: "easy"
-      },
-      {
-        question: "What is the correct way to write a comment in JavaScript?",
-        options: JSON.stringify(["<!-- This is a comment -->", "// This is a comment", "/* This is a comment */", "Both // and /* */"]),
-        correct_answer: "Both // and /* */",
-        difficulty: "easy"
-      },
-      {
-        question: "Which of the following is NOT a JavaScript data type?",
-        options: JSON.stringify(["String", "Boolean", "Object", "Character"]),
-        correct_answer: "Character",
+        question: "What will be the output of the following code?\n\nint arr[3] = {1, 2, 3};\nprintf(\"%d\", *(arr + 1));",
+        options: JSON.stringify(["1", "2", "3", "Garbage value"]),
+        correct_answer: "2",
         difficulty: "medium"
       },
       {
-        question: "How do you create a function in JavaScript?",
-        options: JSON.stringify(["function myFunction()", "function:myFunction()", "function = myFunction()", "create myFunction()"]),
-        correct_answer: "function myFunction()",
+        question: "Which of the following is the correct way to declare a pointer to an array of 5 integers?",
+        options: JSON.stringify(["int *ptr[5];", "int (*ptr)[5];", "int ptr[5];", "int ptr(*5);"]),
+        correct_answer: "int (*ptr)[5];",
         difficulty: "medium"
       },
       {
-        question: "What is the correct HTML element for inserting a line break?",
-        options: JSON.stringify(["<lb>", "<break>", "<br>", "<newline>"]),
-        correct_answer: "<br>",
-        difficulty: "easy"
-      },
-      {
-        question: "What is the correct way to link an external JavaScript file?",
-        options: JSON.stringify(["<script href='script.js'>", "<script src='script.js'>", "<script name='script.js'>", "<script link='script.js'>"]),
-        correct_answer: "<script src='script.js'>",
+        question: "What is the output of the following code?\n\nint x = 5;\nint *p = &x;\n*p = *p + 5;\nprintf(\"%d\", x);",
+        options: JSON.stringify(["5", "10", "0", "Compilation error"]),
+        correct_answer: "10",
         difficulty: "medium"
       },
       {
-        question: "Which operator is used to assign a value to a variable in JavaScript?",
-        options: JSON.stringify(["=", "==", "===", "*"]),
-        correct_answer: "=",
+        question: "Consider the following code snippet:\n\nchar str[] = \"CProgramming\";\nprintf(\"%c\", *(str + 2));",
+        options: JSON.stringify(["C", "P", "r", "o"]),
+        correct_answer: "r",
         difficulty: "easy"
       },
       {
-        question: "How do you declare a constant variable in JavaScript?",
-        options: JSON.stringify(["var", "let", "const", "constant"]),
+        question: "What will the following code print?\n\nint a = 5, b = 10;\nif (a = b)\n    printf(\"Equal\");\nelse\n    printf(\"Not Equal\");",
+        options: JSON.stringify(["Equal", "Not Equal", "Compilation Error", "Runtime Error"]),
+        correct_answer: "Equal",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the size of the array int arr[2][3]; in bytes if sizeof(int) = 4?",
+        options: JSON.stringify(["8", "10", "24", "6"]),
+        correct_answer: "24",
+        difficulty: "medium"
+      },
+      {
+        question: "What is the output of this code?\n\nint a[2][2] = {{1, 2}, {3, 4}};\nprintf(\"%d\", *(*(a + 1) + 1));",
+        options: JSON.stringify(["1", "2", "3", "4"]),
+        correct_answer: "4",
+        difficulty: "hard"
+      },
+      {
+        question: "What does this code print?\n\nint arr[] = {5, 10, 15};\nint *p = arr;\nprintf(\"%d\", *(p++));",
+        options: JSON.stringify(["5", "10", "15", "Garbage value"]),
+        correct_answer: "5",
+        difficulty: "medium"
+      },
+      {
+        question: "What will the following code output?\n\nint arr[3] = {1, 2, 3};\nint sum = 0;\nfor (int i = 0; i < 3; i++)\n    sum += arr[i];\nprintf(\"%d\", sum);",
+        options: JSON.stringify(["3", "6", "9", "Compilation error"]),
+        correct_answer: "6",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the output of this code?\n\nint x = 3;\nint y = 4;\nprintf(\"%d\", x & y);",
+        options: JSON.stringify(["0", "1", "2", "3"]),
+        correct_answer: "2",
+        difficulty: "medium"
+      },
+      // First Year TITA Numerical Questions
+      {
+        question: "How many keywords are there in ANSI C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "32",
+        difficulty: "medium"
+      },
+      {
+        question: "How many types of tokens exist in C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "6",
+        difficulty: "medium"
+      },
+      {
+        question: "How many storage classes are supported in C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "4",
+        difficulty: "medium"
+      },
+      {
+        question: "How many basic data types are defined in ANSI C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "4",
+        difficulty: "medium"
+      },
+      {
+        question: "What is the maximum length (in characters) of an identifier in ANSI C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "31",
+        difficulty: "medium"
+      },
+      {
+        question: "How many bytes are used to store a float in a 32-bit C system?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "4",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the ASCII value of the character 'A'?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "65",
+        difficulty: "easy"
+      },
+      {
+        question: "How many escape sequences are defined in standard C?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "15",
+        difficulty: "medium"
+      },
+      // First Year TITA String Questions
+      {
+        question: "What is the keyword used in C to define a constant value that cannot be changed during execution?",
+        options: JSON.stringify(["Enter a single word"]),
         correct_answer: "const",
+        difficulty: "easy"
+      },
+      {
+        question: "Which keyword is used to define a user-defined data type in C?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "typedef",
         difficulty: "medium"
+      },
+      {
+        question: "Which header file is required to use standard input and output functions like printf and scanf?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "stdio.h",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the keyword used to allocate memory dynamically in C?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "malloc",
+        difficulty: "medium"
+      },
+      {
+        question: "Which keyword is used to exit a loop prematurely in C?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "break",
+        difficulty: "easy"
+      },
+      {
+        question: "What keyword is used to return control from a function to the calling function?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "return",
+        difficulty: "easy"
+      },
+      {
+        question: "Which C library function is used to find the length of a string?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "strlen",
+        difficulty: "easy"
       }
     ];
     
     // SECOND YEAR QUESTIONS
     const secondYearQuestions = [
       {
-        question: "What is a closure in JavaScript?",
-        options: JSON.stringify(["A function that can access variables from its outer scope", "A block of code that never executes", "A CSS property", "A method to close browser windows"]),
-        correct_answer: "A function that can access variables from its outer scope",
+        question: "What is the output of the following C++ code?\n\nint a = 10, b = 20;\ncout << a++ + ++b;",
+        options: JSON.stringify(["30", "31", "32", "33"]),
+        correct_answer: "32",
         difficulty: "medium"
       },
       {
-        question: "What is the time complexity of binary search?",
-        options: JSON.stringify(["O(1)", "O(n)", "O(log n)", "O(n²)"]),
-        correct_answer: "O(log n)",
+        question: "Which sorting algorithm has the best average-case time complexity?",
+        options: JSON.stringify(["Bubble Sort", "Insertion Sort", "Merge Sort", "Selection Sort"]),
+        correct_answer: "Merge Sort",
         difficulty: "medium"
       },
       {
-        question: "What does the 'this' keyword refer to in JavaScript?",
-        options: JSON.stringify(["The current function", "The parent object", "The object the method belongs to", "The global window object"]),
-        correct_answer: "The object the method belongs to",
+        question: "What does this Java code output?\n\nint x = 5;\nSystem.out.println(x >> 1);",
+        options: JSON.stringify(["2", "2.5", "3", "1"]),
+        correct_answer: "2",
         difficulty: "medium"
       },
       {
-        question: "Which data structure follows the FIFO principle?",
-        options: JSON.stringify(["Stack", "Queue", "Heap", "Tree"]),
-        correct_answer: "Queue",
+        question: "Which of these data structures is used in recursion?",
+        options: JSON.stringify(["Queue", "Array", "Stack", "Linked List"]),
+        correct_answer: "Stack",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the output of this C++ code?\n\nint x = 7;\nint y = x & 3;\ncout << y;",
+        options: JSON.stringify(["1", "3", "2", "0"]),
+        correct_answer: "3",
         difficulty: "medium"
       },
       {
-        question: "What is the purpose of the 'async' and 'await' keywords in JavaScript?",
-        options: JSON.stringify(["Handling DOM events", "Simplifying asynchronous operations", "Creating classes", "Managing database connections"]),
-        correct_answer: "Simplifying asynchronous operations",
+        question: "Which of the following is *not* a property of dynamic programming?",
+        options: JSON.stringify(["Optimal Substructure", "Memoization", "Greedy Choice", "Overlapping Subproblems"]),
+        correct_answer: "Greedy Choice",
         difficulty: "hard"
       },
       {
-        question: "What is the correct way to handle errors in an async function?",
-        options: JSON.stringify(["try/catch block", "if/else statement", "switch statement", "error event listener"]),
-        correct_answer: "try/catch block",
+        question: "What will be the output of the following Java code?\n\nint arr[] = {1, 2, 3};\nSystem.out.println(arr[1]);",
+        options: JSON.stringify(["1", "2", "3", "Compilation Error"]),
+        correct_answer: "2",
+        difficulty: "easy"
+      },
+      {
+        question: "Which of the following traversal methods is used in Depth First Search?",
+        options: JSON.stringify(["Level Order", "Breadth First", "Preorder", "Inorder"]),
+        correct_answer: "Preorder",
+        difficulty: "medium"
+      },
+      {
+        question: "What will be the output of the following code snippet?\n\nint a = 5;\ncout << (a == 5 ? \"Five\" : \"Not Five\");",
+        options: JSON.stringify(["Five", "Not Five", "Error", "None"]),
+        correct_answer: "Five",
+        difficulty: "easy"
+      },
+      {
+        question: "Which data structure gives O(1) time complexity for insertion and deletion at both ends?",
+        options: JSON.stringify(["Stack", "Queue", "Deque", "Array"]),
+        correct_answer: "Deque",
+        difficulty: "medium"
+      },
+      // Second Year TITA Numerical Questions
+      {
+        question: "What is the total number of steps required to find an element using Binary Search in a sorted array of 8 elements in the worst case?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "3",
+        difficulty: "medium"
+      },
+      {
+        question: "How many types of inheritance are supported in C++?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "5",
+        difficulty: "medium"
+      },
+      {
+        question: "What is the total number of recursive calls made in Merge Sort for an array of 8 elements?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "7",
         difficulty: "hard"
       },
       {
-        question: "What is a React hook?",
-        options: JSON.stringify(["A function to access React features", "A CSS framework", "A JavaScript library", "A database connection"]),
-        correct_answer: "A function to access React features",
+        question: "What is the default size (in bytes) of an int in Java?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "4",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the maximum number of child nodes a binary tree node can have?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "2",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the number of comparisons in the worst-case scenario for Linear Search in an array of 10 elements?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "10",
+        difficulty: "easy"
+      },
+      {
+        question: "What is the maximum number of elements in a heap with height 3 (binary heap)?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "15",
         difficulty: "medium"
       },
       {
-        question: "Which of the following is NOT a valid HTTP method?",
-        options: JSON.stringify(["GET", "POST", "DELETE", "FETCH"]),
-        correct_answer: "FETCH",
+        question: "How many bits are there in a Java char data type?",
+        options: JSON.stringify(["Enter a numerical value"]),
+        correct_answer: "16",
+        difficulty: "medium"
+      },
+      // Second Year TITA String Questions
+      {
+        question: "In Java, which keyword is used to achieve runtime polymorphism?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "override",
         difficulty: "medium"
       },
       {
-        question: "What is the purpose of Redux in React applications?",
-        options: JSON.stringify(["DOM manipulation", "State management", "API calls", "Component styling"]),
-        correct_answer: "State management",
+        question: "In C++, which concept allows multiple functions to have the same name with different parameters?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "function overloading",
         difficulty: "medium"
       },
       {
-        question: "What is the difference between 'let' and 'var' in JavaScript?",
-        options: JSON.stringify(["'let' has block scope, 'var' has function scope", "'var' has block scope, 'let' has function scope", "They are identical", "'let' is for strings, 'var' is for numbers"]),
-        correct_answer: "'let' has block scope, 'var' has function scope",
+        question: "What is the data structure used in BFS traversal?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "queue",
         difficulty: "medium"
+      },
+      {
+        question: "In Java, which keyword is used to prevent a method from being overridden?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "final",
+        difficulty: "medium"
+      },
+      {
+        question: "Which algorithmic paradigm is used in Merge Sort?",
+        options: JSON.stringify(["Enter a single word or phrase"]),
+        correct_answer: "divide and conquer",
+        difficulty: "medium"
+      },
+      {
+        question: "Which C++ concept allows a base class pointer to refer to a derived class object?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "polymorphism",
+        difficulty: "medium"
+      },
+      {
+        question: "Which Java feature allows one class to inherit from another?",
+        options: JSON.stringify(["Enter a single word"]),
+        correct_answer: "inheritance",
+        difficulty: "easy"
       }
     ];
     
-    // THIRD YEAR QUESTIONS
+    // THIRD YEAR QUESTIONS - using some basic placeholders
     const thirdYearQuestions = [
       {
-        question: "What is a pure function in functional programming?",
-        options: JSON.stringify(["A function with no side effects", "A function that logs to console", "A function that modifies DOM", "A function that changes global state"]),
-        correct_answer: "A function with no side effects",
+        question: "What design pattern is used to decouple an abstraction from its implementation?",
+        options: JSON.stringify(["Adapter", "Bridge", "Composite", "Decorator"]),
+        correct_answer: "Bridge",
         difficulty: "hard"
       },
       {
-        question: "What design pattern is React's architecture based on?",
-        options: JSON.stringify(["MVC", "MVVM", "Flux", "Observer"]),
-        correct_answer: "Flux",
-        difficulty: "hard"
-      },
-      {
-        question: "What is server-side rendering in React?",
-        options: JSON.stringify(["Rendering components on the server before sending HTML to client", "Using a dedicated server for React apps", "Running React on a Node.js server", "Hosting React apps on a cloud server"]),
-        correct_answer: "Rendering components on the server before sending HTML to client",
-        difficulty: "hard"
-      },
-      {
-        question: "What tool would you use to analyze a React app's bundle size?",
-        options: JSON.stringify(["Webpack Bundle Analyzer", "React DevTools", "Chrome DevTools", "Node Inspector"]),
-        correct_answer: "Webpack Bundle Analyzer",
-        difficulty: "hard"
-      },
-      {
-        question: "What is the purpose of Docker in modern web development?",
-        options: JSON.stringify(["Containerization for consistent development and deployment", "API management", "Front-end framework", "Database optimization"]),
-        correct_answer: "Containerization for consistent development and deployment",
-        difficulty: "hard"
-      },
-      {
-        question: "Which of these is a microservices architecture advantage?",
-        options: JSON.stringify(["Easier debugging", "Independent scaling of services", "Simpler deployment", "Lower latency"]),
-        correct_answer: "Independent scaling of services",
-        difficulty: "hard"
-      },
-      {
-        question: "What is GraphQL?",
-        options: JSON.stringify(["A query language for APIs", "A graph database", "A charting library", "A JavaScript framework"]),
-        correct_answer: "A query language for APIs",
-        difficulty: "hard"
-      },
-      {
-        question: "What is the purpose of JWT in authentication?",
-        options: JSON.stringify(["Secure data transmission", "User interface components", "Server-side rendering", "Database encryption"]),
-        correct_answer: "Secure data transmission",
+        question: "Which of the following is NOT a microservice architecture pattern?",
+        options: JSON.stringify(["API Gateway", "Circuit Breaker", "Monolithic Design", "Service Discovery"]),
+        correct_answer: "Monolithic Design",
         difficulty: "medium"
       },
       {
-        question: "What is the advantage of using TypeScript over JavaScript?",
-        options: JSON.stringify(["Static type checking", "Faster execution", "Smaller bundle size", "Direct browser support"]),
-        correct_answer: "Static type checking",
+        question: "In cloud computing, what does IaaS stand for?",
+        options: JSON.stringify(["Internet as a Service", "Infrastructure as a Service", "Integration as a Service", "Identity as a Service"]),
+        correct_answer: "Infrastructure as a Service",
         difficulty: "medium"
       },
       {
-        question: "What is CORS in web development?",
-        options: JSON.stringify(["A security feature restricting resource requests", "A CSS framework", "A JavaScript library", "A browser developer tool"]),
-        correct_answer: "A security feature restricting resource requests",
+        question: "Which of these is a DevOps practice?",
+        options: JSON.stringify(["Waterfall development", "Continuous Integration", "Big Design Up Front", "Manual deployments"]),
+        correct_answer: "Continuous Integration",
         difficulty: "medium"
+      },
+      {
+        question: "What is the time complexity of the Dijkstra's algorithm using a priority queue?",
+        options: JSON.stringify(["O(V)", "O(V + E)", "O(V log V)", "O(V^2)"]),
+        correct_answer: "O(V log V)",
+        difficulty: "hard"
       }
     ];
 
@@ -304,6 +453,10 @@ async function seedQuizQuestions() {
     }
 
     console.log('Quiz questions seeded successfully');
+    console.log(`Year 1: ${firstYearQuestions.length} questions`);
+    console.log(`Year 2: ${secondYearQuestions.length} questions`);
+    console.log(`Year 3: ${thirdYearQuestions.length} questions`);
+    console.log(`Total: ${firstYearQuestions.length + secondYearQuestions.length + thirdYearQuestions.length} questions`);
   } catch (error) {
     console.error('Error seeding questions:', error);
   }

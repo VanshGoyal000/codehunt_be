@@ -8,6 +8,7 @@ const XLSX = require('xlsx');
 const ExcelJS = require('exceljs');
 const { adminAuth } = require('../middleware/auth');
 const { User, Question, Response, Setting } = require('../models');
+const { deleteUsersByPattern } = require('../scripts/db-utils');
 
 // Configure file upload
 const storage = multer.diskStorage({
@@ -540,6 +541,25 @@ router.get('/quiz-status', adminAuth, async (req, res) => {
   } catch (error) {
     console.error('Quiz status fetch error:', error);
     res.status(500).json({ message: 'Error fetching quiz status', error: error.message });
+  }
+});
+
+// Delete test users (admin only)
+router.delete('/test-users', adminAuth, async (req, res) => {
+  try {
+    const pattern = req.query.pattern || /^testuser\d+$/;
+    
+    console.log(`Admin ${req.user.username} is deleting test users matching pattern: ${pattern}`);
+    
+    const result = await deleteUsersByPattern(pattern);
+    
+    res.json({
+      message: 'Test users deleted successfully',
+      ...result
+    });
+  } catch (error) {
+    console.error('Error deleting test users:', error);
+    res.status(500).json({ message: 'Error deleting test users', error: error.message });
   }
 });
 

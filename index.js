@@ -41,8 +41,9 @@ async function initializeApp() {
     await createAdminUser();
     await seedQuizQuestions();
     
-    // Comment out the initializeSettings call since it's not defined
-    // await initializeSettings();
+    // Call initializeSettings now that it's properly defined
+    await initializeSettings();
+    console.log('App initialization complete!');
   } catch (error) {
     console.error('Initialization error:', error);
   }
@@ -88,7 +89,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server with optimized settings
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   // Set server timeouts to handle many concurrent connections
   server.keepAliveTimeout = 65000; // 65 seconds
   server.headersTimeout = 66000; // 66 seconds
