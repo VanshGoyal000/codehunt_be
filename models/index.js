@@ -51,6 +51,11 @@ const questionSchema = new mongoose.Schema({
     type: String,
     enum: ['easy', 'medium', 'hard'],
     default: 'medium'
+  },
+  question_type: {
+    type: String,
+    enum: ['mcq', 'numerical', 'string'],
+    default: 'mcq'
   }
 });
 

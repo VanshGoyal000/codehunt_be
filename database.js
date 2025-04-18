@@ -76,7 +76,7 @@ async function seedQuizQuestions() {
     console.log('Existing questions cleared, seeding new questions...');
     
     // FIRST YEAR QUESTIONS
-    const firstYearQuestions = [
+    const firstYearMCQ = [
       {
         question: "What will be the output of the following code?\n\nint arr[3] = {1, 2, 3};\nprintf(\"%d\", *(arr + 1));",
         options: JSON.stringify(["1", "2", "3", "Garbage value"]),
@@ -136,103 +136,124 @@ async function seedQuizQuestions() {
         options: JSON.stringify(["0", "1", "2", "3"]),
         correct_answer: "2",
         difficulty: "medium"
-      },
-      // First Year TITA Numerical Questions
+      }
+    ];
+    
+    // First Year TITA Numerical Questions
+    const firstYearNumerical = [
       {
         question: "How many keywords are there in ANSI C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "32",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many types of tokens exist in C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "6",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many storage classes are supported in C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "4",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many basic data types are defined in ANSI C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "4",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "What is the maximum length (in characters) of an identifier in ANSI C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "31",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many bytes are used to store a float in a 32-bit C system?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "4",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "numerical"
       },
       {
         question: "What is the ASCII value of the character 'A'?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "65",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "numerical"
       },
       {
         question: "How many escape sequences are defined in standard C?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "15",
-        difficulty: "medium"
-      },
-      // First Year TITA String Questions
+        difficulty: "medium",
+        question_type: "numerical"
+      }
+    ];
+    
+    // First Year TITA String Questions
+    const firstYearString = [
       {
         question: "What is the keyword used in C to define a constant value that cannot be changed during execution?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "const",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       },
       {
         question: "Which keyword is used to define a user-defined data type in C?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "typedef",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "Which header file is required to use standard input and output functions like printf and scanf?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "stdio.h",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       },
       {
         question: "What is the keyword used to allocate memory dynamically in C?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "malloc",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "Which keyword is used to exit a loop prematurely in C?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "break",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       },
       {
         question: "What keyword is used to return control from a function to the calling function?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "return",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       },
       {
         question: "Which C library function is used to find the length of a string?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "strlen",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       }
     ];
     
     // SECOND YEAR QUESTIONS
-    const secondYearQuestions = [
+    const secondYearMCQ = [
       {
         question: "What is the output of the following C++ code?\n\nint a = 10, b = 20;\ncout << a++ + ++b;",
         options: JSON.stringify(["30", "31", "32", "33"]),
@@ -292,171 +313,153 @@ async function seedQuizQuestions() {
         options: JSON.stringify(["Stack", "Queue", "Deque", "Array"]),
         correct_answer: "Deque",
         difficulty: "medium"
-      },
-      // Second Year TITA Numerical Questions
+      }
+    ];
+    
+    // Second Year TITA Numerical Questions
+    const secondYearNumerical = [
       {
         question: "What is the total number of steps required to find an element using Binary Search in a sorted array of 8 elements in the worst case?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "3",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many types of inheritance are supported in C++?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "5",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "What is the total number of recursive calls made in Merge Sort for an array of 8 elements?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "7",
-        difficulty: "hard"
+        difficulty: "hard",
+        question_type: "numerical"
       },
       {
         question: "What is the default size (in bytes) of an int in Java?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "4",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "numerical"
       },
       {
         question: "What is the maximum number of child nodes a binary tree node can have?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "2",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "numerical"
       },
       {
         question: "What is the number of comparisons in the worst-case scenario for Linear Search in an array of 10 elements?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "10",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "numerical"
       },
       {
         question: "What is the maximum number of elements in a heap with height 3 (binary heap)?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "15",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "numerical"
       },
       {
         question: "How many bits are there in a Java char data type?",
         options: JSON.stringify(["Enter a numerical value"]),
         correct_answer: "16",
-        difficulty: "medium"
-      },
-      // Second Year TITA String Questions
+        difficulty: "medium",
+        question_type: "numerical"
+      }
+    ];
+    
+    // Second Year TITA String Questions
+    const secondYearString = [
       {
         question: "In Java, which keyword is used to achieve runtime polymorphism?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "override",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "In C++, which concept allows multiple functions to have the same name with different parameters?",
-        options: JSON.stringify(["Enter a single word"]),
+        options: JSON.stringify(["Enter a phrase"]),
         correct_answer: "function overloading",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "What is the data structure used in BFS traversal?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "queue",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "In Java, which keyword is used to prevent a method from being overridden?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "final",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "Which algorithmic paradigm is used in Merge Sort?",
-        options: JSON.stringify(["Enter a single word or phrase"]),
+        options: JSON.stringify(["Enter a phrase"]),
         correct_answer: "divide and conquer",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "Which C++ concept allows a base class pointer to refer to a derived class object?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "polymorphism",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "string"
       },
       {
         question: "Which Java feature allows one class to inherit from another?",
         options: JSON.stringify(["Enter a single word"]),
         correct_answer: "inheritance",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "string"
       }
     ];
     
-    // THIRD YEAR QUESTIONS - using some basic placeholders
-    const thirdYearQuestions = [
-      {
-        question: "What design pattern is used to decouple an abstraction from its implementation?",
-        options: JSON.stringify(["Adapter", "Bridge", "Composite", "Decorator"]),
-        correct_answer: "Bridge",
-        difficulty: "hard"
-      },
-      {
-        question: "Which of the following is NOT a microservice architecture pattern?",
-        options: JSON.stringify(["API Gateway", "Circuit Breaker", "Monolithic Design", "Service Discovery"]),
-        correct_answer: "Monolithic Design",
-        difficulty: "medium"
-      },
-      {
-        question: "In cloud computing, what does IaaS stand for?",
-        options: JSON.stringify(["Internet as a Service", "Infrastructure as a Service", "Integration as a Service", "Identity as a Service"]),
-        correct_answer: "Infrastructure as a Service",
-        difficulty: "medium"
-      },
-      {
-        question: "Which of these is a DevOps practice?",
-        options: JSON.stringify(["Waterfall development", "Continuous Integration", "Big Design Up Front", "Manual deployments"]),
-        correct_answer: "Continuous Integration",
-        difficulty: "medium"
-      },
-      {
-        question: "What is the time complexity of the Dijkstra's algorithm using a priority queue?",
-        options: JSON.stringify(["O(V)", "O(V + E)", "O(V log V)", "O(V^2)"]),
-        correct_answer: "O(V log V)",
-        difficulty: "hard"
-      }
-    ];
-
-    // Insert questions for each year
+    // Insert all questions for year 1
+    const firstYearQuestions = [...firstYearMCQ, ...firstYearNumerical, ...firstYearString];
     for (const q of firstYearQuestions) {
       await Question.create({
         year_level: 1,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
-        difficulty: q.difficulty
+        difficulty: q.difficulty,
+        question_type: q.question_type || "mcq" // Default to MCQ if not specified
       });
     }
 
+    // Insert all questions for year 2
+    const secondYearQuestions = [...secondYearMCQ, ...secondYearNumerical, ...secondYearString];
     for (const q of secondYearQuestions) {
       await Question.create({
         year_level: 2,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
-        difficulty: q.difficulty
+        difficulty: q.difficulty,
+        question_type: q.question_type || "mcq" // Default to MCQ if not specified
       });
     }
 
-    for (const q of thirdYearQuestions) {
-      await Question.create({
-        year_level: 3,
-        question: q.question,
-        options: q.options,
-        correct_answer: q.correct_answer,
-        difficulty: q.difficulty
-      });
-    }
-
+    // Log results
     console.log('Quiz questions seeded successfully');
     console.log(`Year 1: ${firstYearQuestions.length} questions`);
     console.log(`Year 2: ${secondYearQuestions.length} questions`);
-    console.log(`Year 3: ${thirdYearQuestions.length} questions`);
-    console.log(`Total: ${firstYearQuestions.length + secondYearQuestions.length + thirdYearQuestions.length} questions`);
+    console.log(`Total: ${firstYearQuestions.length + secondYearQuestions.length} questions`);
   } catch (error) {
     console.error('Error seeding questions:', error);
   }
