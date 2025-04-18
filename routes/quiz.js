@@ -492,4 +492,33 @@ router.get('/:year', auth, checkQuizEnabled, async (req, res) => {
   }
 });
 
+// Get quiz questions by year level
+router.get('/:year', auth, async (req, res) => {
+  try {
+    const year = parseInt(req.params.year);
+    
+    if (isNaN(year) || year < 1 || year > 3) {
+      return res.status(400).json({ message: 'Invalid year level' });
+    }
+    
+    // Get all questions for this year level, regardless of type
+    const questions = await Question.find({ year_level: year })
+                                   .select('-correct_answer') // Don't send correct answers to client
+                                   .lean();
+    
+    console.log(`Fetched ${questions.length} questions for year ${year}`);
+    console.log(`Types: MCQ=${questions.filter(q => !q.question_type || q.question_type === 'mcq').length}, 
+                 Numerical=${questions.filter(q => q.question_type === 'numerical').length}, 
+                 String=${questions.filter(q => q.question_type === 'string').length}`);
+    
+    // Shuffle questions for this year
+    const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+    
+    return res.status(200).json({ questions: shuffledQuestions });
+  } catch (error) {
+    console.error('Error getting quiz questions:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
