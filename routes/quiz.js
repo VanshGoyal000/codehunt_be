@@ -501,14 +501,16 @@ router.get('/:year', auth, async (req, res) => {
       return res.status(400).json({ message: 'Invalid year level' });
     }
     
-    // Fetch all questions for this year level without any limit
+    // Get all questions for this year level, regardless of type
     const questions = await Question.find({ year_level: year })
-                               .select('-correct_answer') // Don't send correct answers to client
-                               .lean();
+                                   .select('-correct_answer') // Don't send correct answers to client
+                                   .lean();
     
     console.log(`Fetched ${questions.length} questions for year ${year}`);
+    console.log(`Types: MCQ=${questions.filter(q => !q.question_type || q.question_type === 'mcq').length}, 
+                 Numerical=${questions.filter(q => q.question_type === 'numerical').length}, 
+                 String=${questions.filter(q => q.question_type === 'string').length}`);
     
-    // Make sure we're returning ALL questions, not just 10
     // Shuffle questions for this year
     const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
     

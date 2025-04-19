@@ -41,7 +41,8 @@ async function initializeApp() {
     await createAdminUser();
     await seedQuizQuestions();
     
-    // Call initializeSettings now that it's properly defined
+    // Import the missing function
+    const { initializeSettings } = require('./database');
     await initializeSettings();
     console.log('App initialization complete!');
   } catch (error) {
