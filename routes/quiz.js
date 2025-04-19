@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User, Question, Response, Timer, Setting } = require('../models');
 const { auth } = require('../middleware/auth');
+const mongoose = require('mongoose');
 
 // Global timer variables
 let globalTimer = {
@@ -10,6 +11,47 @@ let globalTimer = {
   duration: 0,
   createdBy: null
 };
+
+// Implement caching middleware for quiz routes
+const cache = {};
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+
+function cacheMiddleware(req, res, next) {
+  // Only cache GET requests
+  if (req.method !== 'GET') return next();
+  
+  const key = `${req.originalUrl || req.url}`;
+  const cachedResponse = cache[key];
+  
+  if (cachedResponse && (Date.now() - cachedResponse.timestamp < CACHE_DURATION)) {
+    console.log(`Cache hit for ${key}`);
+    return res.status(200).json(cachedResponse.data);
+  }
+  
+  // Store the original send function
+  const originalSend = res.send;
+  
+  // Override the send function
+  res.send = function(body) {
+    // Only cache successful responses
+    if (res.statusCode === 200 && body) {
+      try {
+        // Store in cache
+        cache[key] = {
+          data: JSON.parse(body),
+          timestamp: Date.now()
+        };
+      } catch (err) {
+        console.error('Error parsing response for cache:', err);
+      }
+    }
+    
+    // Call the original send function
+    originalSend.call(this, body);
+  };
+  
+  next();
+}
 
 // Check if quiz is enabled - middleware
 const checkQuizEnabled = async (req, res, next) => {
@@ -493,7 +535,7 @@ router.get('/:year', auth, checkQuizEnabled, async (req, res) => {
 });
 
 // Get quiz questions by year level - optimized with pagination
-router.get('/:year', auth, async (req, res) => {
+router.get('/:year', auth, cacheMiddleware, async (req, res) => {
   try {
     const year = parseInt(req.params.year);
     
@@ -533,5 +575,14 @@ router.get('/:year', auth, async (req, res) => {
     return res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Clear cache when questions are updated
+const clearQuestionCache = () => {
+  Object.keys(cache).forEach(key => {
+    if (key.includes('/quiz/')) {
+      delete cache[key];
+    }
+  });
+};
 
 module.exports = router;
