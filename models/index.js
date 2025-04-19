@@ -28,12 +28,13 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Question schema
+// Question schema - Add index to improve query performance
 const questionSchema = new mongoose.Schema({
   year_level: {   // Changed from quiz_round to year_level
     type: Number,
     required: true,
-    enum: [1, 2, 3]  // 1st year, 2nd year, 3rd year
+    enum: [1, 2, 3],  // 1st year, 2nd year, 3rd year
+    index: true  // Add index for better query performance
   },
   question: {
     type: String,
@@ -58,6 +59,9 @@ const questionSchema = new mongoose.Schema({
     default: 'mcq'
   }
 });
+
+// Add compound index for more efficient queries
+questionSchema.index({ year_level: 1, difficulty: 1 });
 
 // Response schema
 const responseSchema = new mongoose.Schema({

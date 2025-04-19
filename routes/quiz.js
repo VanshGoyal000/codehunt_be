@@ -492,7 +492,7 @@ router.get('/:year', auth, checkQuizEnabled, async (req, res) => {
   }
 });
 
-// Get quiz questions by year level
+// Get quiz questions by year level - optimized with pagination
 router.get('/:year', auth, async (req, res) => {
   try {
     const year = parseInt(req.params.year);
@@ -500,21 +500,34 @@ router.get('/:year', auth, async (req, res) => {
     if (isNaN(year) || year < 1 || year > 3) {
       return res.status(400).json({ message: 'Invalid year level' });
     }
+
+    // Add pagination to reduce payload size
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10; // Default to 10 questions per page
+    const skip = (page - 1) * limit;
     
-    // Get all questions for this year level, regardless of type
+    // Get count for pagination metadata
+    const totalQuestions = await Question.countDocuments({ year_level: year });
+    
+    // Get paginated questions for this year level
     const questions = await Question.find({ year_level: year })
-                                   .select('-correct_answer') // Don't send correct answers to client
-                                   .lean();
+                                 .select('-correct_answer') // Don't send correct answers to client
+                                 .skip(skip)
+                                 .limit(limit)
+                                 .lean();
     
-    console.log(`Fetched ${questions.length} questions for year ${year}`);
-    console.log(`Types: MCQ=${questions.filter(q => !q.question_type || q.question_type === 'mcq').length}, 
-                 Numerical=${questions.filter(q => q.question_type === 'numerical').length}, 
-                 String=${questions.filter(q => q.question_type === 'string').length}`);
+    console.log(`Fetched ${questions.length} questions for year ${year} (page ${page}, limit ${limit})`);
     
-    // Shuffle questions for this year
-    const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-    
-    return res.status(200).json({ questions: shuffledQuestions });
+    // Send pagination metadata with the questions
+    return res.status(200).json({ 
+      questions,
+      pagination: {
+        total: totalQuestions,
+        page,
+        limit,
+        pages: Math.ceil(totalQuestions / limit)
+      }
+    });
   } catch (error) {
     console.error('Error getting quiz questions:', error);
     return res.status(500).json({ message: 'Server error' });
