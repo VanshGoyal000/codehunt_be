@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// Simple status endpoint for frontend health checking
+// Simple status endpoint for health checking
 router.get('/', async (req, res) => {
   try {
     const status = {
       serverStatus: 'ok',
       dbStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      apiVersion: '1.0',
+      environment: process.env.NODE_ENV || 'development'
     };
     
     res.status(200).json(status);
