@@ -75,383 +75,438 @@ async function seedQuizQuestions() {
     await Question.deleteMany({});
     console.log('Existing questions cleared, seeding new questions...');
     
-    // FIRST YEAR QUESTIONS
-    const firstYearMCQ = [
+    // FIRST YEAR QUESTIONS - 25 MCQs
+    const firstYearQuestions = [
+      // Original 10 MCQs
       {
+        year_level: 1,
         question: "What will be the output of the following code?\n\nint arr[3] = {1, 2, 3};\nprintf(\"%d\", *(arr + 1));",
         options: JSON.stringify(["1", "2", "3", "Garbage value"]),
         correct_answer: "2",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "Which of the following is the correct way to declare a pointer to an array of 5 integers?",
         options: JSON.stringify(["int *ptr[5];", "int (*ptr)[5];", "int ptr[5];", "int ptr(*5);"]),
         correct_answer: "int (*ptr)[5];",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What is the output of the following code?\n\nint x = 5;\nint *p = &x;\n*p = *p + 5;\nprintf(\"%d\", x);",
         options: JSON.stringify(["5", "10", "0", "Compilation error"]),
         correct_answer: "10",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "Consider the following code snippet:\n\nchar str[] = \"CProgramming\";\nprintf(\"%c\", *(str + 2));",
         options: JSON.stringify(["C", "P", "r", "o"]),
         correct_answer: "r",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What will the following code print?\n\nint a = 5, b = 10;\nif (a = b)\n    printf(\"Equal\");\nelse\n    printf(\"Not Equal\");",
         options: JSON.stringify(["Equal", "Not Equal", "Compilation Error", "Runtime Error"]),
         correct_answer: "Equal",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What is the size of the array int arr[2][3]; in bytes if sizeof(int) = 4?",
         options: JSON.stringify(["8", "10", "24", "6"]),
         correct_answer: "24",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What is the output of this code?\n\nint a[2][2] = {{1, 2}, {3, 4}};\nprintf(\"%d\", *(*(a + 1) + 1));",
         options: JSON.stringify(["1", "2", "3", "4"]),
         correct_answer: "4",
-        difficulty: "hard"
+        difficulty: "hard",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What does this code print?\n\nint arr[] = {5, 10, 15};\nint *p = arr;\nprintf(\"%d\", *(p++));",
         options: JSON.stringify(["5", "10", "15", "Garbage value"]),
         correct_answer: "5",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What will the following code output?\n\nint arr[3] = {1, 2, 3};\nint sum = 0;\nfor (int i = 0; i < 3; i++)\n    sum += arr[i];\nprintf(\"%d\", sum);",
         options: JSON.stringify(["3", "6", "9", "Compilation error"]),
         correct_answer: "6",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 1,
         question: "What is the output of this code?\n\nint x = 3;\nint y = 4;\nprintf(\"%d\", x & y);",
         options: JSON.stringify(["0", "1", "2", "3"]),
         correct_answer: "2",
-        difficulty: "medium"
-      }
-    ];
-    
-    // First Year TITA Numerical Questions
-    const firstYearNumerical = [
-      {
-        question: "How many keywords are there in ANSI C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "32",
         difficulty: "medium",
-        question_type: "numerical"
+        question_type: "mcq"
+      },
+      // New additional 15 MCQs
+      {
+        year_level: 1,
+        question: "Which keyword in C is used to declare a variable that is defined in another file or scope?",
+        options: JSON.stringify(["global", "extern", "static", "export"]),
+        correct_answer: "extern",
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
-        question: "How many types of tokens exist in C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "6",
+        year_level: 1,
+        question: "Which C keyword is used to group different types of variables under a single name for structured data representation?",
+        options: JSON.stringify(["typedef", "struct", "union", "enum"]),
+        correct_answer: "struct",
         difficulty: "medium",
-        question_type: "numerical"
+        question_type: "mcq"
       },
       {
-        question: "How many storage classes are supported in C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "4",
-        difficulty: "medium",
-        question_type: "numerical"
-      },
-      {
-        question: "How many basic data types are defined in ANSI C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "4",
-        difficulty: "medium",
-        question_type: "numerical"
-      },
-      {
-        question: "What is the maximum length (in characters) of an identifier in ANSI C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "31",
-        difficulty: "medium",
-        question_type: "numerical"
-      },
-      {
-        question: "How many bytes are used to store a float in a 32-bit C system?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "4",
+        year_level: 1,
+        question: "Which C keyword is used to skip the current iteration of a loop and jump to the next one?",
+        options: JSON.stringify(["skip", "pass", "continue", "next"]),
+        correct_answer: "continue",
         difficulty: "easy",
-        question_type: "numerical"
+        question_type: "mcq"
       },
       {
-        question: "What is the ASCII value of the character 'A'?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "65",
-        difficulty: "easy",
-        question_type: "numerical"
-      },
-      {
-        question: "How many escape sequences are defined in standard C?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "15",
+        year_level: 1,
+        question: "Which keyword in C++ allows a function or operator to be defined with the same name but behave differently based on input types or parameters?",
+        options: JSON.stringify(["override", "overload", "polymorph", "virtual"]),
+        correct_answer: "overload",
         difficulty: "medium",
-        question_type: "numerical"
-      }
-    ];
-    
-    // First Year TITA String Questions
-    const firstYearString = [
+        question_type: "mcq"
+      },
       {
-        question: "What is the keyword used in C to define a constant value that cannot be changed during execution?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 1,
+        question: "Which C++ keyword is utilized to define a block of code that executes automatically when an object goes out of scope, often used for cleanup tasks?",
+        options: JSON.stringify(["constructor", "finalizer", "destructor", "cleaner"]),
+        correct_answer: "destructor",
+        difficulty: "medium",
+        question_type: "mcq"
+      },
+      {
+        year_level: 1,
+        question: "Which C keyword enforces immutability on a variable at compile time, preventing any reassignment during program execution?",
+        options: JSON.stringify(["final", "static", "const", "define"]),
         correct_answer: "const",
-        difficulty: "easy",
-        question_type: "string"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
-        question: "Which keyword is used to define a user-defined data type in C?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 1,
+        question: "Which keyword in C allows the creation of an alias for existing data types, thereby enabling the definition of user-defined data abstractions?",
+        options: JSON.stringify(["alias", "define", "typedef", "struct"]),
         correct_answer: "typedef",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "Which header file is required to use standard input and output functions like printf and scanf?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 1,
+        question: "Which standard C header file must be included to access formatted input and output functions such as printf and scanf?",
+        options: JSON.stringify(["conio.h", "stdlib.h", "stdio.h", "string.h"]),
         correct_answer: "stdio.h",
         difficulty: "easy",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "What is the keyword used to allocate memory dynamically in C?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 1,
+        question: "Which C standard library function keyword facilitates dynamic memory allocation at runtime by returning a pointer to a specified block of memory?",
+        options: JSON.stringify(["calloc", "malloc", "realloc", "alloc"]),
         correct_answer: "malloc",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "Which keyword is used to exit a loop prematurely in C?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 1,
+        question: "Which control flow keyword in C is used to force an immediate termination of the innermost enclosing loop or switch construct?",
+        options: JSON.stringify(["break", "continue", "exit", "return"]),
         correct_answer: "break",
         difficulty: "easy",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "What keyword is used to return control from a function to the calling function?",
-        options: JSON.stringify(["Enter a single word"]),
-        correct_answer: "return",
-        difficulty: "easy",
-        question_type: "string"
+        year_level: 1,
+        question: "Which Python keyword is used to initiate an exception handling construct that allows graceful management of runtime errors?",
+        options: JSON.stringify(["handle", "throw", "error", "try"]),
+        correct_answer: "try",
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
-        question: "Which C library function is used to find the length of a string?",
-        options: JSON.stringify(["Enter a single word"]),
-        correct_answer: "strlen",
+        year_level: 1,
+        question: "Which keyword in Python denotes an immutable sequence type commonly used for storing heterogeneous elements?",
+        options: JSON.stringify(["list", "tuple", "set", "array"]),
+        correct_answer: "tuple",
+        difficulty: "medium",
+        question_type: "mcq"
+      },
+      {
+        year_level: 1,
+        question: "Which Java keyword is utilized to create an instance of a class dynamically during runtime?",
+        options: JSON.stringify(["class", "object", "new", "make"]),
+        correct_answer: "new",
         difficulty: "easy",
-        question_type: "string"
+        question_type: "mcq"
+      },
+      {
+        year_level: 1,
+        question: "Which keyword in Java is used to prevent a method or variable from being overridden or modified in derived classes?",
+        options: JSON.stringify(["final", "static", "const", "sealed"]),
+        correct_answer: "final",
+        difficulty: "medium",
+        question_type: "mcq"
+      },
+      {
+        year_level: 1,
+        question: "Which Java keyword is used to create a block of code that runs automatically when an object is instantiated?",
+        options: JSON.stringify(["init", "constructor", "method", "class"]),
+        correct_answer: "constructor",
+        difficulty: "medium",
+        question_type: "mcq"
       }
     ];
-    
-    // SECOND YEAR QUESTIONS
-    const secondYearMCQ = [
+
+    // SECOND YEAR QUESTIONS - 25 MCQs
+    const secondYearQuestions = [
+      // Original 10 MCQs
       {
+        year_level: 2,
         question: "What is the output of the following C++ code?\n\nint a = 10, b = 20;\ncout << a++ + ++b;",
         options: JSON.stringify(["30", "31", "32", "33"]),
         correct_answer: "32",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "Which sorting algorithm has the best average-case time complexity?",
         options: JSON.stringify(["Bubble Sort", "Insertion Sort", "Merge Sort", "Selection Sort"]),
         correct_answer: "Merge Sort",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "What does this Java code output?\n\nint x = 5;\nSystem.out.println(x >> 1);",
         options: JSON.stringify(["2", "2.5", "3", "1"]),
         correct_answer: "2",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "Which of these data structures is used in recursion?",
         options: JSON.stringify(["Queue", "Array", "Stack", "Linked List"]),
         correct_answer: "Stack",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "What is the output of this C++ code?\n\nint x = 7;\nint y = x & 3;\ncout << y;",
         options: JSON.stringify(["1", "3", "2", "0"]),
         correct_answer: "3",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "Which of the following is *not* a property of dynamic programming?",
         options: JSON.stringify(["Optimal Substructure", "Memoization", "Greedy Choice", "Overlapping Subproblems"]),
         correct_answer: "Greedy Choice",
-        difficulty: "hard"
+        difficulty: "hard",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "What will be the output of the following Java code?\n\nint arr[] = {1, 2, 3};\nSystem.out.println(arr[1]);",
         options: JSON.stringify(["1", "2", "3", "Compilation Error"]),
         correct_answer: "2",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "Which of the following traversal methods is used in Depth First Search?",
         options: JSON.stringify(["Level Order", "Breadth First", "Preorder", "Inorder"]),
         correct_answer: "Preorder",
-        difficulty: "medium"
+        difficulty: "medium",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "What will be the output of the following code snippet?\n\nint a = 5;\ncout << (a == 5 ? \"Five\" : \"Not Five\");",
         options: JSON.stringify(["Five", "Not Five", "Error", "None"]),
         correct_answer: "Five",
-        difficulty: "easy"
+        difficulty: "easy",
+        question_type: "mcq"
       },
       {
+        year_level: 2,
         question: "Which data structure gives O(1) time complexity for insertion and deletion at both ends?",
         options: JSON.stringify(["Stack", "Queue", "Deque", "Array"]),
         correct_answer: "Deque",
-        difficulty: "medium"
-      }
-    ];
-    
-    // Second Year TITA Numerical Questions
-    const secondYearNumerical = [
-      {
-        question: "What is the total number of steps required to find an element using Binary Search in a sorted array of 8 elements in the worst case?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "3",
         difficulty: "medium",
-        question_type: "numerical"
+        question_type: "mcq"
       },
+      // New additional 15 MCQs
       {
-        question: "How many types of inheritance are supported in C++?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "5",
-        difficulty: "medium",
-        question_type: "numerical"
-      },
-      {
-        question: "What is the total number of recursive calls made in Merge Sort for an array of 8 elements?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "7",
+        year_level: 2,
+        question: "Consider an algorithm with the recurrence relation: T(n)=2T(n/2)+n. What is the tight asymptotic bound for its time complexity?",
+        options: JSON.stringify(["O(nlogn)", "O(n)", "O(logn)", "O(n^2)"]),
+        correct_answer: "O(nlogn)",
         difficulty: "hard",
-        question_type: "numerical"
+        question_type: "mcq"
       },
       {
-        question: "What is the default size (in bytes) of an int in Java?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "4",
-        difficulty: "easy",
-        question_type: "numerical"
-      },
-      {
-        question: "What is the maximum number of child nodes a binary tree node can have?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "2",
-        difficulty: "easy",
-        question_type: "numerical"
-      },
-      {
-        question: "What is the number of comparisons in the worst-case scenario for Linear Search in an array of 10 elements?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "10",
-        difficulty: "easy",
-        question_type: "numerical"
-      },
-      {
-        question: "What is the maximum number of elements in a heap with height 3 (binary heap)?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "15",
+        year_level: 2,
+        question: "Which of the following complexities represents the best-case time for searching an element in a balanced binary search tree (BST)?",
+        options: JSON.stringify(["O(1)", "O(logn)", "O(n)", "O(nlogn)"]),
+        correct_answer: "O(logn)",
         difficulty: "medium",
-        question_type: "numerical"
+        question_type: "mcq"
       },
       {
-        question: "How many bits are there in a Java char data type?",
-        options: JSON.stringify(["Enter a numerical value"]),
-        correct_answer: "16",
+        year_level: 2,
+        question: "If an algorithm requires storing all pairs of elements from an input array of size n, what is the asymptotic space complexity?",
+        options: JSON.stringify(["O(n)", "O(nlogn)", "O(n^2)", "O(2^n)"]),
+        correct_answer: "O(n^2)",
         difficulty: "medium",
-        question_type: "numerical"
-      }
-    ];
-    
-    // Second Year TITA String Questions
-    const secondYearString = [
+        question_type: "mcq"
+      },
       {
-        question: "In Java, which keyword is used to achieve runtime polymorphism?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 2,
+        question: "For an algorithm that recursively splits the input into three equal parts and performs constant-time work at each level, which recurrence expresses the time complexity?",
+        options: JSON.stringify(["T(n)=2T(n/2)+n", "T(n)=3T(n/3)+O(1)", "T(n)=T(n−1)+O(1)", "T(n)=T(n−1)+n"]),
+        correct_answer: "T(n)=3T(n/3)+O(1)",
+        difficulty: "hard",
+        question_type: "mcq"
+      },
+      {
+        year_level: 2,
+        question: "Which of the following statements best describes the difference between space complexity and auxiliary space?",
+        options: JSON.stringify(["They are always the same", "Space complexity only measures stack usage", "Auxiliary space excludes input storage space", "Auxiliary space includes input and output space"]),
+        correct_answer: "Auxiliary space excludes input storage space",
+        difficulty: "medium",
+        question_type: "mcq"
+      },
+      {
+        year_level: 2,
+        question: "In the context of Java's late binding paradigm, which syntactic construct facilitates dynamic method resolution based on the actual object's class at runtime, rather than the reference type?",
+        options: JSON.stringify(["overload", "virtual", "override", "dynamic"]),
         correct_answer: "override",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "In C++, which concept allows multiple functions to have the same name with different parameters?",
-        options: JSON.stringify(["Enter a phrase"]),
-        correct_answer: "function overloading",
+        year_level: 2,
+        question: "Which C++ mechanism permits syntactic duplication of function identifiers, differentiated solely by variances in their formal parameter lists, resolved during the compilation phase?",
+        options: JSON.stringify(["Virtualization", "Function Overriding", "Function Overloading", "Method Binding"]),
+        correct_answer: "Function Overloading",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "What is the data structure used in BFS traversal?",
-        options: JSON.stringify(["Enter a single word"]),
-        correct_answer: "queue",
+        year_level: 2,
+        question: "What abstract data type, operating on a strict first-in-first-out scheduling discipline, underlies the node exploration logic in breadth-prioritized graph traversals?",
+        options: JSON.stringify(["Stack", "Queue", "Linked List", "Priority Queue"]),
+        correct_answer: "Queue",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "In Java, which keyword is used to prevent a method from being overridden?",
-        options: JSON.stringify(["Enter a single word"]),
+        year_level: 2,
+        question: "In Java's method declaration syntax, which keyword ensures the immutability of method behavior by disabling the possibility of subclass-level redefinition?",
+        options: JSON.stringify(["const", "static", "final", "private"]),
         correct_answer: "final",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "Which algorithmic paradigm is used in Merge Sort?",
-        options: JSON.stringify(["Enter a phrase"]),
-        correct_answer: "divide and conquer",
+        year_level: 2,
+        question: "Which foundational principle of C++ object-oriented semantics permits a superclass pointer to reference subclass instances while invoking the subclass-specific method definitions at runtime?",
+        options: JSON.stringify(["Templates", "Abstraction", "Polymorphism", "Encapsulation"]),
+        correct_answer: "Polymorphism",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "Which C++ concept allows a base class pointer to refer to a derived class object?",
-        options: JSON.stringify(["Enter a single word"]),
-        correct_answer: "polymorphism",
+        year_level: 2,
+        question: "A function is defined as T(n)=2⋅T(n−1) with base case T(1)=1. What is the closed-form expression of T(n) and its time complexity?",
+        options: JSON.stringify(["T(n)=n, Time Complexity: Θ(n)", "T(n)=2^n, Time Complexity: Θ(2^n)", "T(n)=2^n−1, Time Complexity: Θ(2^n)", "T(n)=n^2, Time Complexity: O(n^2)"]),
+        correct_answer: "T(n)=2^n−1, Time Complexity: Θ(2^n)",
+        difficulty: "hard",
+        question_type: "mcq"
+      },
+      {
+        year_level: 2,
+        question: "Given a min-heap [2, 5, 7, 10, 15, 20, 25], after inserting the element 1, what will be the new root and the number of swaps during percolation?",
+        options: JSON.stringify(["Root = 1, Swaps = 3", "Root = 2, Swaps = 0", "Root = 1, Swaps = 1", "Root = 5, Swaps = 2"]),
+        correct_answer: "Root = 1, Swaps = 3",
+        difficulty: "hard",
+        question_type: "mcq"
+      },
+      {
+        year_level: 2,
+        question: "In a complete undirected graph with n vertices, how many edges exist, and what is the space complexity of its adjacency matrix representation?",
+        options: JSON.stringify(["n(n−1)/2, O(n^2)", "n(n−1), O(n)", "n^2, O(n)", "log n, O(n logn)"]),
+        correct_answer: "n(n−1)/2, O(n^2)",
         difficulty: "medium",
-        question_type: "string"
+        question_type: "mcq"
       },
       {
-        question: "Which Java feature allows one class to inherit from another?",
-        options: JSON.stringify(["Enter a single word"]),
-        correct_answer: "inheritance",
-        difficulty: "easy",
-        question_type: "string"
+        year_level: 2,
+        question: "Given the recurrence T(n)=3T(n/2)+O(n), determine the tight asymptotic bound using Master's Theorem.",
+        options: JSON.stringify(["O(nlogn)", "O(n1.5)", "O(n^log2^3)", "O(n^2)"]),
+        correct_answer: "O(n^log2^3)",
+        difficulty: "hard",
+        question_type: "mcq"
+      },
+      {
+        year_level: 2,
+        question: "For a sorted array of 1025 elements, what is the maximum number of comparisons performed in binary search (worst case)?",
+        options: JSON.stringify(["10", "9", "11", "8"]),
+        correct_answer: "11",
+        difficulty: "medium",
+        question_type: "mcq"
       }
     ];
     
-    // Insert all questions for year 1
-    const firstYearQuestions = [...firstYearMCQ, ...firstYearNumerical, ...firstYearString];
+    // Insert questions for each year
     for (const q of firstYearQuestions) {
       await Question.create({
-        year_level: 1,
+        year_level: q.year_level,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
         difficulty: q.difficulty,
-        question_type: q.question_type || "mcq" // Default to MCQ if not specified
+        question_type: q.question_type || "mcq"
       });
     }
 
-    // Insert all questions for year 2
-    const secondYearQuestions = [...secondYearMCQ, ...secondYearNumerical, ...secondYearString];
     for (const q of secondYearQuestions) {
       await Question.create({
-        year_level: 2,
+        year_level: q.year_level,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
         difficulty: q.difficulty,
-        question_type: q.question_type || "mcq" // Default to MCQ if not specified
+        question_type: q.question_type || "mcq"
       });
     }
 
